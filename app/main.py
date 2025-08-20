@@ -1,6 +1,6 @@
 import logging
 
-from fastapi import APIRouter, FastAPI
+from fastapi import APIRouter, FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 
@@ -65,3 +65,9 @@ app.include_router(coupon.router)
 @app.get("/", include_in_schema=False)
 async def redirect_to_docs():
     return RedirectResponse(url="/docs")
+
+
+@app.get("/health-check", status_code=status.HTTP_200_OK)
+async def checkHealth():
+    print("hit me baby one more time!")
+    return "success"
